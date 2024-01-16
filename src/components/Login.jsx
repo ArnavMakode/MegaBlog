@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { register, handlesubmit } = useForm();
+  const { register, handleSubmit } = useForm();
   const [error, setError] = useState("");
 
   const login = async (data) => {
@@ -18,6 +18,8 @@ function Login() {
       const session = await authService.login(data);
       if (session) {
         const userData = await authService.getCurrentUser();
+        console.log(`Login: userdata:`);
+        console.log(userData);
         dispatch(authLogin(userData));
         navigate("/");
       }
@@ -27,7 +29,7 @@ function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center w-full">
+    <div className="flex flex-col items-center justify-center w-full">
       <div className="mb-2 flex justify-center">
         <span className="inline-block w-full max-w-[100px]">
           <Logo width="100%" />
@@ -46,7 +48,7 @@ function Login() {
         </Link>
       </p>
       {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
-      <form onSubmit={handlesubmit(login)} className="mt-8">
+      <form onSubmit={handleSubmit(login)} className="mt-8">
         <div className="space-y-5">
           <Input
             label="Email: "

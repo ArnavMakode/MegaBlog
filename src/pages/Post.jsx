@@ -17,7 +17,10 @@ export default function Post() {
   useEffect(() => {
     if (slug) {
       appwriteService.getPost(slug).then((post) => {
-        if (post) setPost(post);
+        if (post) {setPost(post);
+        console.log("post set");
+        console.log(post);
+        }
         else navigate("/");
       });
     } else navigate("/");
@@ -26,7 +29,7 @@ export default function Post() {
   const deletePost = () => {
     appwriteService.deletePost(post.$id).then((status) => {
       if (status) {
-        appwriteService.deleteFile(post.featuredImage);
+        appwriteService.deleteFile(post.featuredImages);
         navigate("/");
       }
     });
@@ -37,7 +40,7 @@ export default function Post() {
       <Container>
         <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
           <img
-            src={appwriteService.getFilePreview(post.featuredImage)}
+            src={appwriteService.getFilePreview(post.featuredImages)}
             alt={post.title}
             className="rounded-xl"
           />

@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 const Header = () => {
   const authStatus = useSelector((state) => state.auth.status);
   const navigate = useNavigate();
+  const userData = useSelector(state => state.auth.userData);
 
   const navItems = [
     {
@@ -35,13 +36,18 @@ const Header = () => {
   ];
   return (
     <header className="py-3 shadow bg-gray-500">
-      <nav className="flex">
+      <nav className="flex items-center">
         <div className="mr-4">
           <Link to="/">
             <Logo width="70px" />
           </Link>
         </div>
-        <ul className="flex ml-auto">
+        {authStatus && (
+            <div className="text-green-200 italic">
+              username: {userData.name}
+            </div>
+          )}
+        <ul className="flex ml-auto">   
           {navItems.map((item) =>
             item.active ? (
               <li key={item.name}>

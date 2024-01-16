@@ -5,12 +5,12 @@ import appwriteService from "../../services/appwrite/config";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-function PostForm({ post }) {
+export default function PostForm({ post }) {
   const { register, handleSubmit, watch, setValue, control, getValues } =
     useForm({
       defaultValues: {
         title: post?.title || "",
-        slug: post?.slug || "",
+        slug: post?.$id || "",
         content: post?.content || "",
         status: post?.status || "active",
       },
@@ -21,49 +21,62 @@ function PostForm({ post }) {
 
   const submit = async (data) => {
     if (post) {
-      const file = (await data.image[0])
-        ? appwriteService.uploadFile(data.image[0])
+      const file = data.image[0]
+        ? await appwriteService.uploadFile(data.image[0])
         : null;
-      if (file) appwriteService.deleteFile(post.featuredImage);
+
+      if (file) {
+        appwriteService.deleteFile(post.featuredImage);
+      }
+
       const dbPost = await appwriteService.updatePost(post.$id, {
         ...data,
         featuredImage: file ? file.$id : undefined,
       });
-      if (dbPost) navigate(`/post/${dbPost.$id}`);
+
+      if (dbPost) {
+        navigate(`/post/${dbPost.$id}`);
+      }
     } else {
-      const file = (await data.image[0])
-        ? appwriteService.uploadFile(data.image[0])
+      const file = data.image[0]
+        ? await appwriteService.uploadFile(data.image[0])
         : null;
       if (file) {
-        data.featuredImage = file.$id;
+        const fileId = file.$id;
         const dbPost = await appwriteService.createPost({
           ...data,
+          featuredImages: fileId,
           userId: userData.$id,
         });
-        if (dbPost) navigate(`/post/${dbPost.$id}`);
+
+        if (dbPost) {
+          navigate(`/post/${dbPost.$id}`);
+        }
       }
     }
   };
 
   const slugTransform = useCallback((value) => {
-    if (value && typeof value === "string") {
+    if (value && typeof value === "string")
       return value
         .trim()
         .toLowerCase()
-        .replace(/^[a-zA-Z\d\s]+/g, "-")
+        .replace(/[^a-zA-Z\d\s]+/g, "-")
         .replace(/\s/g, "-");
-    }
+
     return "";
   }, []);
+
   useEffect(() => {
     const subscription = watch((value, { name }) => {
       if (name === "title") {
-        setValue("slug", slugTransform(value.title, { shouldValidate: true }));
+        setValue("slug", slugTransform(value.title), { shouldValidate: true });
       }
     });
 
-    return () => subscription.unsbuscribe();
+    return () => subscription.unsubscribe();
   }, [watch, slugTransform, setValue]);
+
   return (
     <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
       <div className="w-2/3 px-2">
@@ -125,4 +138,3 @@ function PostForm({ post }) {
     </form>
   );
 }
-export default PostForm;
