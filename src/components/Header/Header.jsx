@@ -48,7 +48,7 @@ const Header = () => {
               <li key={item.name}>
                 <button
                   onClick={() => navigate(item.slug)}
-                  className="inline-bock px-1 md:px-6 py-2 duration-200 hover:bg-blue-100 rounded-full"
+                  className="inline-bock px-1 md:px-6 py-2 duration-200 hover:bg-blue-100 rounded-full max-sm:text-sm"
                 >
                   {item.name}
                 </button>
@@ -64,8 +64,8 @@ const Header = () => {
       </nav>
       <div>
       {authStatus && (
-            <div className="font-bold italic pl-2">
-              user: {userData.name}
+            <div className="font-bold flex justify-end pr-4">
+              👤 {userData.name}
             </div>
           )}
       </div>
