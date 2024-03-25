@@ -11,8 +11,6 @@ function EditPost() {
   useEffect(() => {
     if (slug) {
       appwriteServices.getPost(slug).then((post) => {
-        console.log("edit post: getPost");
-        console.log(post);
         if (post) setPost(post);
       });
     } else navigate("/");

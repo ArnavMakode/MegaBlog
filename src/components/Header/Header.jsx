@@ -42,18 +42,13 @@ const Header = () => {
             <Logo width="70px" />
           </Link>
         </div>
-        {authStatus && (
-            <div className="text-green-200 italic">
-              username: {userData.name}
-            </div>
-          )}
-        <ul className="flex ml-auto">   
+        <ul className="flex md:ml-auto">   
           {navItems.map((item) =>
             item.active ? (
               <li key={item.name}>
                 <button
                   onClick={() => navigate(item.slug)}
-                  className="inline-bock px-6 py-2 duration-200 hover:bg-blue-100 rounded-full"
+                  className="inline-bock px-1 md:px-6 py-2 duration-200 hover:bg-blue-100 rounded-full"
                 >
                   {item.name}
                 </button>
@@ -67,6 +62,13 @@ const Header = () => {
           )}
         </ul>
       </nav>
+      <div>
+      {authStatus && (
+            <div className="font-bold italic pl-2">
+              user: {userData.name}
+            </div>
+          )}
+      </div>
     </header>
   );
 };

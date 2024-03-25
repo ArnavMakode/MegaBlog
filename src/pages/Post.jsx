@@ -17,10 +17,7 @@ export default function Post() {
   useEffect(() => {
     if (slug) {
       appwriteService.getPost(slug).then((post) => {
-        if (post) {setPost(post);
-        console.log("post set");
-        console.log(post);
-        }
+        if (post) setPost(post);
         else navigate("/");
       });
     } else navigate("/");
@@ -38,15 +35,9 @@ export default function Post() {
   return post ? (
     <div className="py-8">
       <Container>
-        <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
-          <img
-            src={appwriteService.getFilePreview(post.featuredImages)}
-            alt={post.title}
-            className="rounded-xl"
-          />
-
+        <div className="pl-2">
           {isAuthor && (
-            <div className="absolute right-6 top-6">
+            <div>
               <Link to={`/edit-post/${post.$id}`}>
                 <Button bgColor="bg-green-500" className="mr-3">
                   Edit
@@ -57,6 +48,13 @@ export default function Post() {
               </Button>
             </div>
           )}
+        </div>
+        <div className="w-[300px] mb-4 relative border rounded-xl p-2">
+          <img
+            src={appwriteService.getFilePreview(post.featuredImages)}
+            alt={post.title}
+            className="rounded-xl w-[250px] mx-auto"
+          />
         </div>
         <div className="w-full mb-6">
           <h1 className="text-2xl font-bold">{post.title}</h1>

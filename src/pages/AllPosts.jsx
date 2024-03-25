@@ -6,12 +6,12 @@ import { Query } from "appwrite";
 
 function AllPosts() {
   const [posts, setPosts] = useState([]);
-  const userId = useSelector(state => state.auth.userData);
+  const userData = useSelector(state => state.auth.userData);
   
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await appwriteService.getPosts([Query.equal("userId", userId.$id)]);
+        const result = await appwriteService.getPosts([Query.equal("userId", userData.$id)]);
         if (result && result.documents) {
           setPosts([...result.documents]);
         }
@@ -43,7 +43,7 @@ function AllPosts() {
         <Container>
           <div className="flex flex-wrap">
             {posts.map((post) => (
-              <div key={post.$id} className="p-2 w-1/4">
+              <div key={post.$id} className="p-2">
                 <PostCard {...post} />
               </div>
             ))}
