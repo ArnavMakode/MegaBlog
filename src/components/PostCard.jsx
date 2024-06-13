@@ -1,14 +1,17 @@
 import { Link } from "react-router-dom";
 import service from "../services/appwrite/config";
 
-function PostCard({ $id, title, featuredImages }) {
+function PostCard({ $id, title, featuredImages, userId }) {
   return (
     <Link to={`/post/${$id}`}>
       <div className="w-full bg-gray-100 rounded-xl p-4">
+
         <div className="w-full mb-4 h-[250px]">
           <img
             src={service.getFilePreview(featuredImages)}
             alt={title}
+            loading="lazy"
+            fetchPriority="high"
             className="rounded-xl w-full h-full object-contain object-center"
           />
         </div>
