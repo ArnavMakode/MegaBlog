@@ -10,12 +10,9 @@ function PostCard({ $id, title, featuredImages, userId }) {
           <img
             src={service.getFilePreview(featuredImages)}
             alt={title}
-            loading="lazy"
-            fetchPriority="high"
             className="rounded-xl w-full h-full object-contain object-center"
           />
         </div>
-        <a href={service.getFilePreview(featuredImages)}>{service.getFilePreview(featuredImages).toString()}</a>
         <h2 className="text-xl font-bold">{title}</h2>
       </div>
     </Link>
