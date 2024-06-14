@@ -35,7 +35,7 @@ export default function Post() {
   return post ? (
     <div className="py-8">
       <Container>
-        <div className="pl-2">
+        <div className="pl-2 flex justify-end pb-2 mb-2">
           {isAuthor && (
             <div>
               <Link to={`/edit-post/${post.$id}`}>
