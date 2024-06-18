@@ -10,8 +10,8 @@ function EditPost() {
 
   useEffect(() => {
     if (slug) {
-      appwriteServices.getPost(slug).then((post) => {
-        if (post) setPost(post);
+      appwriteServices.getPost(slug).then((resPost) => {
+        if (resPost) setPost(resPost);
       });
     } else navigate("/");
   }, [slug, navigate]);
@@ -19,7 +19,7 @@ function EditPost() {
   return post ? (
     <div className="py-8">
       <Container>
-        <PostForm {...post} />
+        <PostForm post={post} />
       </Container>
     </div>
   ) : null;

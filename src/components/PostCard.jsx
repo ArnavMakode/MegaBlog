@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import service from "../services/appwrite/config";
 
-function PostCard({ $id, title, featuredImages, userId }) {
+function PostCard({ $id, title, featuredImages }) {
   return (
     <Link to={`/post/${$id}`}>
       <div className="w-full bg-gray-100 rounded-xl p-4">

@@ -103,7 +103,11 @@ export class Service {
   }
 
   getFilePreview(fileId) {
-    return this.bucket.getFilePreview(config.appwriteBucketId, fileId);
+    try {
+      return this.bucket.getFilePreview(config.appwriteBucketId, fileId);
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 

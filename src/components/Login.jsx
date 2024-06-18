@@ -15,14 +15,10 @@ function Login() {
   const login = async (data) => {
     setError("");
     try {
-      console.log("login:");
       const session = await authService.login(data);
-      console.log(session);
 
       if (session) {
         const userData = await authService.getCurrentUser();
-        console.log(`Login: userdata:`);
-        console.log(userData);
         dispatch(authLogin(userData));
         navigate("/");
       }
@@ -42,7 +38,7 @@ function Login() {
         Sign in to your account
       </h2>
       <p className="mt-2 text-center text-base text-black/60">
-        Don&apos;t have any account?&nbsp;
+        Don't have any account?&nbsp;
         <Link
           to="/signup"
           className="font-medium text-primary transition-all duration-200 hover:underline"
