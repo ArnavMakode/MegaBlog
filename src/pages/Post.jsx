@@ -49,11 +49,11 @@ export default function Post() {
             </div>
           )}
         </div>
-        <div className="w-[300px] mb-4 relative border rounded-xl p-2">
+        <div className="mb-4 relative border p-2 bg-white w-full">
           <img
             src={appwriteService.getFilePreview(post.featuredImages)}
             alt={post.title}
-            className="rounded-xl w-[250px] mx-auto"
+            className="rounded-xl max-h-96 mx-auto"
           />
         </div>
         <div className="w-full mb-6">
